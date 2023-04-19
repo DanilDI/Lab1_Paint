@@ -10,8 +10,8 @@ namespace lab1_Paint.Figures
 	[Serializable]
 	abstract class FilledFigure :Figure
 	{
-		private Color fillColor;
-		protected FilledFigure( Color borderColor, Color fillColor)
+		public Color fillColor;
+		public FilledFigure( Color borderColor, Color fillColor)
 			:base ( borderColor)
 		{
 			this.fillColor = fillColor;

@@ -10,9 +10,9 @@ namespace lab1_Paint.Figures
 	[Serializable]
 	class Circle:FilledFigure
 	{
-		private int x;
-		private int y;
-		private int r;
+		public int x;
+		public int y;
+		public int r;
 		public Circle( Color borderColor, Color fillColor, int x, int y, int r)
 			:base(borderColor,  fillColor)
 		{

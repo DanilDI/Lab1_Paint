@@ -10,10 +10,10 @@ namespace lab1_Paint.Figures
 	[Serializable]
 	class Ellipse : FilledFigure
 	{
-		private int left;
-		private int top;
-		private int a;
-		private int b;
+		public int left;
+		public int top;
+		public int a;
+		public int b;
 		public Ellipse(Color borderColor, Color fillColor, int left, int top, int a, int b)
 			: base(borderColor, fillColor)
 		{

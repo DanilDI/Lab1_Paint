@@ -442,11 +442,22 @@ namespace lab1_Paint
 		//сохранение и загрузка
 		private void buttonSave_Click(object sender, EventArgs e)
 		{
-			var options = new JsonSerializerOptions { IncludeFields = true, WriteIndented = true };
-			string jsonString = JsonSerializer.Serialize(data, options);
-			
-			Console.WriteLine(jsonString);
-			Console.WriteLine(jsonString);
+			SaveFileDialog saveFileDialog = new SaveFileDialog();
+			saveFileDialog.DefaultExt = "json";
+			saveFileDialog.Filter = "json files (*.json)|*.json";
+			DialogResult result = saveFileDialog.ShowDialog();
+
+			if (result == DialogResult.Cancel)
+			{
+				return;
+			}
+
+			string fileName = saveFileDialog.FileName;
+			if (fileName == "")
+			{
+				return;
+			}
+			data.serialize(fileName);
 		}
 		private void buttonLoad_Click(object sender, EventArgs e)
 		{

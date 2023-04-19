@@ -3,15 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Text.Json;
 
 using lab1_Paint.Figures;
+using System.IO;
 
 namespace lab1_Paint.Data
 {
 	[Serializable]
 	class Data
 	{
-		private Dictionary<int, Figure> figures;
+		public Dictionary<int, Figure> figures;
 		
 		public Data()
 		{
@@ -43,6 +45,14 @@ namespace lab1_Paint.Data
 		public void refreshFigure(int index, Figure f)
 		{
 			figures[index] = f;
+		}
+		public void serialize(string path)
+		{
+			var options = new JsonSerializerOptions { IncludeFields = true, WriteIndented = true };
+			string jsonString = JsonSerializer.Serialize(this, options);
+
+			File.WriteAllText(path, jsonString);
+			
 		}
 	}
 }

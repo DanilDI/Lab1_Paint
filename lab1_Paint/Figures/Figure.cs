@@ -7,10 +7,10 @@ namespace lab1_Paint.Figures
 	abstract class Figure
 	{
 
-		private Color borderColor;
-		protected string type;
+		public Color borderColor;
+		public string type;
 
-		 protected Figure( Color borderColor)
+		public Figure( Color borderColor)
 		{
 			
 			this.borderColor = borderColor;

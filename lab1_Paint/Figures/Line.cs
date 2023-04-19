@@ -10,10 +10,10 @@ namespace lab1_Paint.Figures
 	[Serializable]
 	class Line:Figure
 	{
-		private int x1;
-		private int x2;
-		private int y1;
-		private int y2;
+		public int x1;
+		public int x2;
+		public int y1;
+		public int y2;
 		public Line( Color borderColor,  int x1, int y1, int x2, int y2)
 			: base( borderColor)
 		{

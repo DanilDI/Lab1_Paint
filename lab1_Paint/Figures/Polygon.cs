@@ -11,7 +11,7 @@ namespace lab1_Paint.Figures
 	[Serializable]
 	class Polygon: FilledFigure
 	{
-		private (int, int)[] vertices;
+		public (int, int)[] vertices;
 		public Polygon( Color borderColor, Color fillColor, (int, int)[] vertices)
 			:base ( borderColor, fillColor)
 		{
