@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Drawing;
+using System.Text.Json.Serialization;
 using System.Windows.Forms;
 namespace lab1_Paint.Figures
 {
@@ -9,14 +10,14 @@ namespace lab1_Paint.Figures
 
 		public Color borderColor;
 		public string type;
-
+		//[JsonConstructor]
 		public Figure( Color borderColor)
 		{
 			
 			this.borderColor = borderColor;
 
 		}
-
+		public Figure() { }
 
 		public void setBorderColor(Color color)
 		{

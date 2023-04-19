@@ -462,6 +462,57 @@ namespace lab1_Paint
 		private void buttonLoad_Click(object sender, EventArgs e)
 		{
 
+
+			
+			OpenFileDialog openFileDialog = new OpenFileDialog();
+
+			openFileDialog.DefaultExt = "json";
+			openFileDialog.Filter = "json files (*.json)|*.json";
+
+			DialogResult result = openFileDialog.ShowDialog();
+
+			if (result == DialogResult.Cancel)
+			{
+				return;
+			}
+			while (panel1.Controls.Count != 0)
+			{
+				foreach (Control child in panel1.Controls)
+				{
+					child.Dispose();
+				}
+			}
+			string fileName = openFileDialog.FileName;
+			data = new Data.Data(fileName);
+			foreach (Figures.Figure f in data.figures.Values)
+
+			{
+				var picture = new PictureBox();
+				picture.ContextMenuStrip = contextMenuStrip1;
+
+				if (f.getType() == "Circle")
+				{
+					Figures.Circle c = (Figures.Circle)f;
+					drawCircle(picture, c.getX(), c.getY(), c.getR(), c.getBorderColor(), c.getFillColor());
+				}
+				if (f.getType() == "Triangle" || f.getType() == "Square" || f.getType() == "Polygon")
+				{
+					Figures.Polygon p = (Figures.Polygon)f;
+					drawPolygon(picture, p.getVertices(), p.getBorderColor(), p.getFillColor());
+				}
+				if (f.getType() == "Ellipse")
+				{
+					Figures.Ellipse el = (Figures.Ellipse)f;
+					drawEllipse(picture, el.getLeft(), el.getTop(), el.getA(), el.getB(), el.getBorderColor(), el.getFillColor());
+				}
+				if (f.getType() == "Line")
+				{
+					picture.ContextMenuStrip = contextMenuStrip3;
+					Figures.Line l = (Figures.Line)f;
+					drawLine(picture, l.getX1(), l.getY1(), l.getX2(), l.getY2(), l.getBorderColor());
+				}
+				panel1.Controls.Add(picture);
+			}
 		}
 
 		

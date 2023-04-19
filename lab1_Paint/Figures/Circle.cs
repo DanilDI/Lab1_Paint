@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Drawing;
+using System.Text.Json.Serialization;
+
 namespace lab1_Paint.Figures
 {
 	[Serializable]
@@ -13,6 +15,8 @@ namespace lab1_Paint.Figures
 		public int x;
 		public int y;
 		public int r;
+		public Circle() { }
+		[JsonConstructor]
 		public Circle( Color borderColor, Color fillColor, int x, int y, int r)
 			:base(borderColor,  fillColor)
 		{

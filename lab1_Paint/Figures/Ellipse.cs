@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Drawing;
+using System.Text.Json.Serialization;
+
 namespace lab1_Paint.Figures
 {
 	[Serializable]
@@ -14,6 +16,7 @@ namespace lab1_Paint.Figures
 		public int top;
 		public int a;
 		public int b;
+		[JsonConstructor]
 		public Ellipse(Color borderColor, Color fillColor, int left, int top, int a, int b)
 			: base(borderColor, fillColor)
 		{
@@ -23,9 +26,9 @@ namespace lab1_Paint.Figures
 			this.b = b;
 			this.type = "Ellipse";
 		}
-		
+		public Ellipse() { }
 
-		
+
 		public int getLeft()
 		{
 			return left;

@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Drawing;
+using System.Text.Json.Serialization;
+
 namespace lab1_Paint.Figures
 {
 	[Serializable]
@@ -14,6 +16,8 @@ namespace lab1_Paint.Figures
 		public int x2;
 		public int y1;
 		public int y2;
+		public Line() { }
+		[JsonConstructor]
 		public Line( Color borderColor,  int x1, int y1, int x2, int y2)
 			: base( borderColor)
 		{
