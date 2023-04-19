@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Numerics;
 using System.Drawing.Imaging;
+using System.Text.Json;//e,hfnm
 
 namespace lab1_Paint
 {
@@ -135,10 +136,107 @@ namespace lab1_Paint
 				panel1.Controls.Add(picture);
 				figureType = "";
 			}
-			
-		}
+			if(figureType == "Polygon")
+			{
+				if (currentPointNumber < 3 || e.Button != MouseButtons.Right)
+				{
+					return;
+				}
+				var picture = new PictureBox();
+				picture.ContextMenuStrip = contextMenuStrip1;
+				(int, int)[] tmp = new (int, int)[currentPointNumber];
+				Array.Copy(reservedPoints, tmp, currentPointNumber);
 
-		
+				int tag = data.addFigure(new Figures.Polygon(pictureBoxLine.BackColor, pictureBoxFill.BackColor, tmp));
+				picture.Tag = tag;
+				
+				drawPolygon(picture, tmp, pictureBoxLine.BackColor, pictureBoxFill.BackColor);
+
+				panel1.Controls.Add(picture);
+				figureType = "";
+			}
+			if(figureType=="Ellipse")
+			{
+				if (e.Button == MouseButtons.Right)
+				{
+					return;
+				}
+				reservedPoints[1] = (e.X, e.Y);
+				(int, int)[] points = new (int, int)[2];
+				Array.Copy(reservedPoints, points, 2);
+
+				(int, int) leftTop = findLeftTop(points);
+				(int, int) widthHeight = findWidthHeight(points);
+				var picture = new PictureBox();
+				picture.ContextMenuStrip = contextMenuStrip1;
+
+
+
+				int tag = data.addFigure(new Figures.Ellipse(pictureBoxLine.BackColor, pictureBoxFill.BackColor, leftTop.Item1, leftTop.Item2, widthHeight.Item1/2, widthHeight.Item2 / 2));
+				picture.Tag = tag;
+
+				drawEllipse(picture, leftTop.Item1, leftTop.Item2, widthHeight.Item1 / 2, widthHeight.Item2 / 2, pictureBoxLine.BackColor, pictureBoxFill.BackColor);
+
+				panel1.Controls.Add(picture);
+				figureType = "";
+
+			}
+			if(figureType=="Line")
+			{
+				if (e.Button == MouseButtons.Right)
+				{
+					return;
+				}
+				reservedPoints[1] = (e.X, e.Y);
+				int x1 = reservedPoints[0].Item1;
+				int x2 = reservedPoints[1].Item1;
+				int y1 = reservedPoints[0].Item2;
+				int y2 = reservedPoints[1].Item2;
+				var picture = new PictureBox();
+				picture.ContextMenuStrip = contextMenuStrip3;
+				int tag = data.addFigure(new Figures.Line(pictureBoxLine.BackColor, x1, y1, x2,y2));
+				picture.Tag = tag;
+
+				drawLine(picture, x1, y1, x2,y2, pictureBoxLine.BackColor);
+
+				panel1.Controls.Add(picture);
+				figureType = "";
+			}
+		}
+		private void drawLine(PictureBox picture, int x1, int y1, int x2, int y2, Color line)
+		{
+			Pen myPen = new Pen(line);
+			(int, int)[] points = new (int, int)[2];
+			Array.Copy(reservedPoints, points, 2);
+
+			(int, int) leftTop = findLeftTop(points);
+			(int, int) widthHeight = findWidthHeight(points);
+			picture.Location = new Point(leftTop.Item1- 1, leftTop.Item2 - 1);
+			picture.Width = widthHeight.Item1 + 2;
+			picture.Height = widthHeight.Item2 + 2;
+			var MyImage = new Bitmap(picture.Width, picture.Height);
+
+			Point[] newPoints = transferPoints(numbersToPoints(points), leftTop.Item1, leftTop.Item2);
+
+
+			Graphics.FromImage(MyImage).DrawLine(myPen, newPoints[0], newPoints[1]);
+
+			picture.BackgroundImage = MyImage;
+		}
+		private void drawEllipse(PictureBox picture, int left, int top, int a,int b, Color line, Color fill)
+		{
+			Pen myPen = new Pen(line);
+			Brush myBrush = new SolidBrush(fill);
+			picture.Location = new Point(left - 1, top - 1);
+			picture.Width = a * 2 + 2;
+			picture.Height = b * 2 + 2;
+			var MyImage = new Bitmap(picture.Width, picture.Height);
+
+			Graphics.FromImage(MyImage).FillEllipse(myBrush, 1, 1, a * 2, b * 2);
+			Graphics.FromImage(MyImage).DrawEllipse(myPen, 1, 1, a * 2, b * 2);
+
+			picture.BackgroundImage = MyImage;
+		}
 
 		private void drawCircle(PictureBox picture,int x, int y,int r, Color line, Color fill)
 		{
@@ -260,6 +358,16 @@ namespace lab1_Paint
 				Figures.Polygon p = (Figures.Polygon)f;
 				drawPolygon((PictureBox)target, p.getVertices(), newColor, p.getFillColor());
 			}
+			if(f.getType() == "Ellipse")
+			{
+				Figures.Ellipse el = (Figures.Ellipse)f;
+				drawEllipse((PictureBox)target, el.getLeft(),el.getTop(),el.getA(),el.getB(), newColor, el.getFillColor());
+			}
+			if (f.getType() == "Line")
+			{
+				Figures.Line l = (Figures.Line)f;
+				drawLine((PictureBox)target, l.getX1(), l.getY1(), l.getX2(), l.getY2(), newColor);
+			}
 			f.setBorderColor(newColor);
 			data.refreshFigure(tag, f);
 		}
@@ -292,6 +400,11 @@ namespace lab1_Paint
 			{
 				Figures.Polygon p = (Figures.Polygon)f;
 				drawPolygon((PictureBox)target, p.getVertices(), p.getBorderColor(), newColor);
+			}
+			if (f.getType() == "Ellipse")
+			{
+				Figures.Ellipse el = (Figures.Ellipse)f;
+				drawEllipse((PictureBox)target, el.getLeft(), el.getTop(), el.getA(), el.getB(),  el.getBorderColor(), newColor);
 			}
 			f.setFillColor(newColor);
 			data.refreshFigure(tag, f);
@@ -329,7 +442,11 @@ namespace lab1_Paint
 		//сохранение и загрузка
 		private void buttonSave_Click(object sender, EventArgs e)
 		{
-
+			var options = new JsonSerializerOptions { IncludeFields = true, WriteIndented = true };
+			string jsonString = JsonSerializer.Serialize(data, options);
+			
+			Console.WriteLine(jsonString);
+			Console.WriteLine(jsonString);
 		}
 		private void buttonLoad_Click(object sender, EventArgs e)
 		{

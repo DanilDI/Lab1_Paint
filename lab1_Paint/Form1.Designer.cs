@@ -47,9 +47,18 @@ namespace lab1_Paint
 			this.delelteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.changeLineColorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.changeFillColorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.contextMenuStrip2 = new System.Windows.Forms.ContextMenuStrip(this.components);
+			this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+			this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
+			this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
+			this.contextMenuStrip3 = new System.Windows.Forms.ContextMenuStrip(this.components);
+			this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.changeLineColorToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
 			((System.ComponentModel.ISupportInitialize)(this.pictureBoxLine)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.pictureBoxFill)).BeginInit();
 			this.contextMenuStrip1.SuspendLayout();
+			this.contextMenuStrip2.SuspendLayout();
+			this.contextMenuStrip3.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// buttonCircle
@@ -212,6 +221,55 @@ namespace lab1_Paint
 			this.changeFillColorToolStripMenuItem.Text = "Change fill color";
 			this.changeFillColorToolStripMenuItem.Click += new System.EventHandler(this.changeFillColorToolStripMenuItem_Click);
 			// 
+			// contextMenuStrip2
+			// 
+			this.contextMenuStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripMenuItem1,
+            this.toolStripMenuItem2,
+            this.toolStripMenuItem3});
+			this.contextMenuStrip2.Name = "contextMenuStrip1";
+			this.contextMenuStrip2.Size = new System.Drawing.Size(168, 70);
+			// 
+			// toolStripMenuItem1
+			// 
+			this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+			this.toolStripMenuItem1.Size = new System.Drawing.Size(167, 22);
+			this.toolStripMenuItem1.Text = "Delelte";
+			// 
+			// toolStripMenuItem2
+			// 
+			this.toolStripMenuItem2.Name = "toolStripMenuItem2";
+			this.toolStripMenuItem2.Size = new System.Drawing.Size(167, 22);
+			this.toolStripMenuItem2.Text = "Change line color";
+			// 
+			// toolStripMenuItem3
+			// 
+			this.toolStripMenuItem3.Name = "toolStripMenuItem3";
+			this.toolStripMenuItem3.Size = new System.Drawing.Size(167, 22);
+			this.toolStripMenuItem3.Text = "Change fill color";
+			// 
+			// contextMenuStrip3
+			// 
+			this.contextMenuStrip3.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.deleteToolStripMenuItem,
+            this.changeLineColorToolStripMenuItem1});
+			this.contextMenuStrip3.Name = "contextMenuStrip3";
+			this.contextMenuStrip3.Size = new System.Drawing.Size(181, 70);
+			// 
+			// deleteToolStripMenuItem
+			// 
+			this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
+			this.deleteToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.deleteToolStripMenuItem.Text = "Delete";
+			this.deleteToolStripMenuItem.Click += new System.EventHandler(this.delelteToolStripMenuItem_Click);
+			// 
+			// changeLineColorToolStripMenuItem1
+			// 
+			this.changeLineColorToolStripMenuItem1.Name = "changeLineColorToolStripMenuItem1";
+			this.changeLineColorToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
+			this.changeLineColorToolStripMenuItem1.Text = "Change line color";
+			this.changeLineColorToolStripMenuItem1.Click += new System.EventHandler(this.changeLineColorToolStripMenuItem_Click);
+			// 
 			// Form1
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -235,6 +293,8 @@ namespace lab1_Paint
 			((System.ComponentModel.ISupportInitialize)(this.pictureBoxLine)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.pictureBoxFill)).EndInit();
 			this.contextMenuStrip1.ResumeLayout(false);
+			this.contextMenuStrip2.ResumeLayout(false);
+			this.contextMenuStrip3.ResumeLayout(false);
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -259,6 +319,13 @@ namespace lab1_Paint
 		private System.Windows.Forms.ToolStripMenuItem delelteToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem changeLineColorToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem changeFillColorToolStripMenuItem;
+		private System.Windows.Forms.ContextMenuStrip contextMenuStrip2;
+		private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
+		private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem2;
+		private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem3;
+		private System.Windows.Forms.ContextMenuStrip contextMenuStrip3;
+		private System.Windows.Forms.ToolStripMenuItem deleteToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem changeLineColorToolStripMenuItem1;
 	}
 }
 
