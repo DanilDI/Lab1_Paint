@@ -484,12 +484,13 @@ namespace lab1_Paint
 			}
 			string fileName = openFileDialog.FileName;
 			data = new Data.Data(fileName);
-			foreach (Figures.Figure f in data.figures.Values)
+			foreach (var d in data.figures)
 
 			{
+				Figures.Figure f =(Figures.Figure) d.Value;
 				var picture = new PictureBox();
 				picture.ContextMenuStrip = contextMenuStrip1;
-
+				picture.Tag = d.Key;
 				if (f.getType() == "Circle")
 				{
 					Figures.Circle c = (Figures.Circle)f;
